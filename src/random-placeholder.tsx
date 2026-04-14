@@ -1,12 +1,7 @@
-import { Typography } from "@mui/material";
+import { LoginModal } from "./components/login-modal/login-modal";
 
 export const RandomPlaceholderPage = () => {
     return (
-        <Typography
-            variant="h1"
-            color="primary"
-        >
-            I Am a Random Placeholder
-        </Typography>
+        <LoginModal isOpen={true} onClose={() => { }} />
     );
 }
