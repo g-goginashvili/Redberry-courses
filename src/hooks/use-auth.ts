@@ -2,39 +2,64 @@ import { create } from 'zustand';
 import { persist } from "zustand/middleware";
 
 type UseAuthType = {
-    accessToken: string;
-    userId: string;
-    userRole: string;
+    id: number;
     username: string;
-    userEmail: string;
-    userPhone: string;
-    userFullName: string;
-    setAccessToken: (newAccessToken: string) => void;
-    setUserId: (newUserId: string) => void;
-    setUserRole: (newRole: string) => void;
-    setUsername: (newRole: string) => void;
-    setUserEmail: (newRole: string) => void;
-    setUserPhone: (newRole: string) => void;
-    setUserFullName: (newRole: string) => void;
+    email: string;
+    avatar: string;
+    fullname: string;
+    mobileNumber: string;
+    age: number;
+    profileComplete: boolean;
+    token: string;
+
+    setId: (id: number) => void;
+    setUsername: (username: string) => void;
+    setEmail: (email: string) => void;
+    setAvatar: (avatar: string) => void;
+    setFullname: (fullname: string) => void;
+    setMobileNumber: (mobileNumber: string) => void;
+    setAge: (age: number) => void;
+    setProfileComplete: (profileComplete: boolean) => void;
+    setToken: (token: string) => void;
+    
+    logout: () => void;
 };
 
 const useAuth = create<UseAuthType>()(
     persist(
         (set) => ({
-            accessToken: "",
-            userId: "",
-            userRole: "",
+            id: 0,
             username: "",
-            userEmail: "",
-            userPhone: "",
-            userFullName: "",
-            setAccessToken: (accessToken) => set({ accessToken }),
-            setUserId: (userId) => set({ userId }),
-            setUserRole: (userRole) => set({ userRole }),
+            email: "",
+            avatar: "",
+            fullname: "",
+            mobileNumber: "",
+            age: 0,
+            profileComplete: false,
+            token: "",
+
+            setId: (id) => set({ id }),
             setUsername: (username) => set({ username }),
-            setUserEmail: (userEmail) => set({ userEmail }),
-            setUserPhone: (userPhone) => set({ userPhone }),
-            setUserFullName: (userFullName) => set({ userFullName })
+            setEmail: (email) => set({ email }),
+            setAvatar: (avatar) => set({ avatar }),
+            setFullname: (fullname) => set({ fullname }),
+            setMobileNumber: (mobileNumber) => set({ mobileNumber }),
+            setAge: (age) => set({ age }),
+            setProfileComplete: (profileComplete) => set({ profileComplete }),
+            setToken: (token) => set({ token }),
+            
+            logout: () =>
+                set({
+                    id: 0,
+                    username: "",
+                    email: "",
+                    avatar: "",
+                    fullname: "",
+                    mobileNumber: "",
+                    age: 0,
+                    profileComplete: false,
+                    token: "",
+                }),
         }),
         { name: "auth-storage" }
     )

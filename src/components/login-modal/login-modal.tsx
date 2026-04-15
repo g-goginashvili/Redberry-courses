@@ -38,6 +38,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
                 })}
                 onSubmit={(values) => {
                     loginAction(values);
+                    onClose();
                 }}
             >
                 <Form>
