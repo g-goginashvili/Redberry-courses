@@ -4,6 +4,7 @@ import { CustomInput } from "../custom-input/custom-input";
 import CloseIcon from "../../assets/icons/close-icon";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useLoginModalController } from "./use-login-modal-controller";
 
 type LoginModalType = {
     isOpen: boolean;
@@ -11,7 +12,10 @@ type LoginModalType = {
 };
 
 export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
-
+    const {
+        loginAction,
+        testFtetch
+    } = useLoginModalController();
     return (
         <Modal
             open={isOpen}
@@ -24,7 +28,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
         >
             <Formik
                 initialValues={{
-                    username: "",
+                    email: "",
                     password: "",
                 }}
                 validationSchema={Yup.object({
@@ -33,7 +37,10 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
                     ).required("Required"),
                     password: Yup.string().required("Required")
                 })}
-                onSubmit={(values) => { }}
+                onSubmit={(values) => {
+                    console.log("flag1");
+                    testFtetch(values);
+                }}
             >
                 <Form>
                     <Box
@@ -90,6 +97,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
                             type="password"
                         />
                         <Button
+                            type="submit"
                             variant="contained"
                             fullWidth
                             sx={{
