@@ -5,6 +5,8 @@ import { useState } from "react"
 import { LoginModal } from "../login-modal/login-modal";
 import { RegistrationModal } from "../registration-modal/registration-modal";
 import useAuth from "../../hooks/use-auth";
+import DefaultAvatarIcon from "../../assets/icons/default-avatar-icon";
+import BookIcon from "../../assets/icons/book-icon";
 
 export const HeaderNavbar = () => {
     const { token } = useAuth();
@@ -19,7 +21,8 @@ export const HeaderNavbar = () => {
             <Box
                 component="nav"
                 sx={{
-                    backgroundColor: "#D1D1D1",
+                    backgroundColor: "#F5F5F5",
+                    borderBottom: "1px solid #D1D1D1",
                     paddingY: "24px",
                     paddingX: "177px",
                     boxSizing: "border-box",
@@ -27,12 +30,12 @@ export const HeaderNavbar = () => {
             >
                 <Stack direction="row" justifyContent="space-between">
                     <RocketIcon />
-                    <Stack direction="row">
+                    <Stack direction="row" gap="36px">
                         <Button
                             sx={{
                                 p: 0,
                                 fontSize: "20px",
-                                color: "black",
+                                color: "#666666",
                                 textTransform: 'none',
                             }}
                         >
@@ -41,9 +44,32 @@ export const HeaderNavbar = () => {
                         </Button>
                         {token ?
                             <>
-                                <Button>enroled curses</Button>
-
-                                <Button>enroled curses</Button>
+                                <Button
+                                    sx={{
+                                        p: 0,
+                                        fontSize: "20px",
+                                        color: "#666666",
+                                        textTransform: 'none',
+                                    }}
+                                >
+                                    <BookIcon />
+                                    Enrolled Courses
+                                </Button>
+                                <Button
+                                    sx={{
+                                        width: 56,
+                                        height: 56,
+                                        minWidth: 0,
+                                        padding: 0,
+                                        borderRadius: "50%",
+                                        backgroundColor: "#EEEDFC",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <DefaultAvatarIcon />
+                                </Button>
                             </> :
                             <Stack direction={"row"} gap="15px">
                                 <Button
