@@ -13,14 +13,14 @@ const heroData = [
         background: bg0
     },
     {
-        header: "Start learning something new today",
-        body: "Explore a wide range of expert-led courses in design, development, business, and more. Find the skills you need to grow your career and learn at your own pace.",
+        header: "Pick up where you left off",
+        body: "Your learning journey is already in progress. Continue your enrolled courses, track your progress, and stay on track toward completing your goals.",
         button: "Browse Courses",
         background: bg1
     },
     {
-        header: "Start learning something new today",
-        body: "Explore a wide range of expert-led courses in design, development, business, and more. Find the skills you need to grow your career and learn at your own pace.",
+        header: "Learn together, grow faster",
+        body: "",
         button: "Browse Courses",
         background: bg2
     }
@@ -39,12 +39,17 @@ export const HeroSlider = () => {
                 backgroundPosition: "center",
                 width: "100%",
                 maxWidth: "1566px",
+                height: "420px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                boxSizing: "border-box"
             }}
         >
-            <Typography fontSize={48} fontWeight="bold">
+            <Typography fontSize={48} fontWeight="bold" color="#FFFFFF">
                 {heroData[slide].header}
             </Typography>
-            <Typography fontSize={24} fontWeight={300} width={1218} mb="40px">
+            <Typography fontSize={24} fontWeight={300} width={1218} mb="40px" color="#FFFFFF">
 
                 {heroData[slide].body}
             </Typography>
@@ -62,7 +67,7 @@ export const HeroSlider = () => {
             >
                 {heroData[slide].button}
             </Button>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+            <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%" mt="auto">
                 <IconButton disabled={slide === 0} onClick={() => setSlide((prev) => prev - 1)}>
                     <ArrowLeftIcon />
                 </IconButton>
