@@ -34,7 +34,6 @@ export const useRegistrationModalController = () => {
 
     const { mutate: registerAction } = useMutation({
         mutationFn: (requestBody: RegistrationBodyType) => register(requestBody),
-        onSuccess: () => console.log("es")
     })
 
     return {

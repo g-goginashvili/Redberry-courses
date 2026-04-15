@@ -13,8 +13,7 @@ type LoginModalType = {
 
 export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
     const {
-        loginAction,
-        testFtetch
+        loginAction
     } = useLoginModalController();
     return (
         <Modal
@@ -38,8 +37,7 @@ export const LoginModal = ({ isOpen, onClose }: LoginModalType) => {
                     password: Yup.string().required("Required")
                 })}
                 onSubmit={(values) => {
-                    console.log("flag1");
-                    testFtetch(values);
+                    loginAction(values);
                 }}
             >
                 <Form>

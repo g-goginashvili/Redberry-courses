@@ -3,6 +3,6 @@ import { RegistrationModal } from "./components/registration-modal/registration-
 
 export const RandomPlaceholderPage = () => {
     return (
-        <LoginModal isOpen={true} onClose={() => { }} />
+        <RegistrationModal isOpen={true} onClose={() => { }} />
     );
 }
