@@ -1,14 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { coursesFeatured } from "../../api/courses-api";
+import { coursesFeatured, coursesInProgress } from "../../api/courses-api";
+import useAuth from "../../hooks/use-auth";
 
 export const useDashboardController = () => {
-    const { isPending, data: coursesFeaturedListObject } = useQuery({
+    const { token } = useAuth();
+
+    const { isPending: coursesFeaturedIsPending, data: coursesFeaturedListObject } = useQuery({
         queryKey: ["coursesFeatured"],
         queryFn: coursesFeatured
     });
 
+    const { isPending: inProgressIsPending, data: coursesInProgressObj } = useQuery({
+        queryKey: ["coursesInProgress"],
+        queryFn: () => coursesInProgress(token),
+        enabled: Boolean(token)
+    });
+
     return {
-        isPending,
-        coursesFeaturedListObject
+        coursesFeaturedIsPending,
+        coursesFeaturedListObject,
+        coursesInProgressObj,
+        inProgressIsPending,
     };
 };
