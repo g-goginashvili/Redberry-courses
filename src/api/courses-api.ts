@@ -84,6 +84,10 @@ export const coursesFeatured = async (): Promise<CoursesResponseType> => {
     return await http.get("/courses/featured");
 };
 
+export const coursesList = async (): Promise<CoursesResponseType> => {
+    return await http.get("/courses");
+};
+
 export const coursesInProgress = async (accessToken: string): Promise<CoursesInProgressResponseType> => {
     return await http.get("/courses/in-progress", accessToken);
 };

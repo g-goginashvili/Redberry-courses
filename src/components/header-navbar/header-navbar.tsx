@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@mui/material"
+import { Box, Button, IconButton, Stack } from "@mui/material"
 import RocketIcon from "../../assets/icons/rocket-icon"
 import StarsIcon from "../../assets/icons/stars-icon"
 import { useState } from "react"
@@ -7,9 +7,11 @@ import { RegistrationModal } from "../registration-modal/registration-modal";
 import useAuth from "../../hooks/use-auth";
 import DefaultAvatarIcon from "../../assets/icons/default-avatar-icon";
 import BookIcon from "../../assets/icons/book-icon";
+import { useNavigate } from "react-router";
 
 export const HeaderNavbar = () => {
     const { token } = useAuth();
+    const navigate = useNavigate();
 
     const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
     const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
@@ -29,9 +31,15 @@ export const HeaderNavbar = () => {
                 }}
             >
                 <Stack direction="row" justifyContent="space-between">
-                    <RocketIcon />
+                    <IconButton
+                        sx={{ padding: 0 }}
+                        onClick={() => navigate("/dashboard")}
+                    >
+                        <RocketIcon />
+                    </IconButton>
                     <Stack direction="row" gap="36px">
                         <Button
+                            onClick={() => navigate("/course-catalog")}
                             sx={{
                                 p: 0,
                                 fontSize: "20px",
