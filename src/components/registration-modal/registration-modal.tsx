@@ -48,7 +48,6 @@ export const RegistrationModal = ({ isOpen, onClose }: RegistrationModalType) =>
                     username: Yup.string().required("Required"),
                 })}
                 onSubmit={(values) => {
-                    console.log(values);
                     registerAction(values)
                 }}
             >

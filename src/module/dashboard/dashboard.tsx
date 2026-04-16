@@ -6,12 +6,9 @@ import RatingStarIcon from "../../assets/icons/rating-start-icon";
 
 export const Dashboard = () => {
     const {
+        isPending,
         coursesFeaturedListObject
     } = useDashboardController();
-
-    console.log(
-        coursesFeaturedListObject
-    )
 
     return (
         <Box
@@ -36,12 +33,14 @@ export const Dashboard = () => {
                 <Typography
                     color="#3D3D3D"
                     fontSize={18}
+                    mb="32px"
                 >
                     Choose from our most popular courses and begin your journey
                 </Typography>
                 <Stack direction="row" gap="24px">
-                    {(coursesFeaturedListObject!.data).map((item) => (
+                    {!isPending && (coursesFeaturedListObject!.data).map((item) => (
                         <Box
+                            key={item.id}
                             component="section"
                             sx={{
                                 padding: "20px",
