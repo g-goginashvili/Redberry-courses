@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { categoriesList, instructorsList, topicsList } from "../../api/filters-api";
 import { useState } from "react";
+import { coursesList } from "../../api/courses-api";
 
 type FilterValuesType = {
     categories: number[];
@@ -14,6 +15,8 @@ export const useCourseCatalogController = () => {
         topics: [],
         instructors: [],
     });
+
+    const [page, setPage] = useState<number>(1);
 
     const toggleFilter = (key: keyof FilterValuesType, id: number) => {
         setFilterValues((prev) => ({
@@ -39,9 +42,19 @@ export const useCourseCatalogController = () => {
         queryFn: () => instructorsList()
     });
 
+    const { isPending: pendingForCoursesList, data: coursesListObj } = useQuery({
+        queryKey: ["coursesList", filterValues, page],
+        queryFn: () => coursesList(
+            filterValues.categories, filterValues.topics, filterValues.instructors, page
+        )
+    });
+    coursesList
+
     return {
         filterValues,
         setFilterValues,
+        page,
+        setPage,
         toggleFilter,
         pendingForCategories,
         categoriesListObj,
@@ -49,5 +62,7 @@ export const useCourseCatalogController = () => {
         topicsListObj,
         pendingForInstructors,
         instructorsListObj,
+        pendingForCoursesList,
+        coursesListObj,
     };
 };

@@ -3,14 +3,15 @@ import ci from "../../assets/course-image/CourseImage.jpg";
 import RatingStarIcon from "../../assets/icons/rating-start-icon";
 import type { CourseType } from "../../api/courses-api"
 
-export const DashboardCourseCard = ({ courseDetails }: { courseDetails: CourseType }) => {
+export const CatalogCourseCard = ({ courseDetails, children }: { courseDetails: CourseType, children: React.ReactNode }) => {
     return (
         <Box
             component="section"
             sx={{
                 padding: "20px",
                 borderRadius: "12px",
-                width: "506px",
+                width: "373px",
+                height: "451px",
                 backgroundColor: "#FFFFFF",
                 display: "flex",
                 flexDirection: "column",
@@ -19,8 +20,7 @@ export const DashboardCourseCard = ({ courseDetails }: { courseDetails: CourseTy
         >
             <Box
                 sx={{
-                    width: "466px",
-                    height: "262px",
+                    height: "181px",
                     backgroundImage: `url(${courseDetails.image || ci})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
@@ -37,12 +37,14 @@ export const DashboardCourseCard = ({ courseDetails }: { courseDetails: CourseTy
                     <Typography color="#525252" fontSize={14}>{courseDetails.avgRating}</Typography>
                 </Stack>
             </Stack>
-            <Typography color="#141414" fontSize={24} fontWeight={600} mt="12px">{courseDetails.title}</Typography>
-            <Typography color="#666666" fontSize={16} width={0.7} mt="16px">{courseDetails.description}</Typography>
+            <Typography color="#0A0A0A" fontSize={24} fontWeight={600} mt="12px">{courseDetails.title}</Typography>
+            <Stack alignItems="flex-start" my="18px">
+                {children}
+            </Stack>
             <Stack direction="row" justifyContent="space-between" alignItems="center" mt="auto">
-                <Stack direction="row" gap={1} alignItems="center">
+                <Stack>
                     <Typography color="#8A8A8A" fontSize="12px">Stargin from</Typography>
-                    <Typography color="#141414" fontSize="32px">{courseDetails.basePrice}</Typography>
+                    <Typography color="#0A0A0A" fontSize="32px">{courseDetails.basePrice}</Typography>
                 </Stack>
                 <Button
                     sx={{

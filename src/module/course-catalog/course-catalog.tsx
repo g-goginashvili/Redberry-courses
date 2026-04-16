@@ -1,7 +1,8 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Pagination, Stack, Typography } from "@mui/material";
 import CloseIcon from "../../assets/icons/close-icon";
 import { BusinessIcon, DataScIcon, DesignIcon, DevelopmentIcon, MarketingIcon } from "../../assets/icons/filter-category-icon";
 import { useCourseCatalogController } from "./use-course-catalog-controller";
+import { CatalogCourseCard } from "../../components/catalog-course-card/catalog-course-card";
 
 const categoryIconMap: Record<string, React.FC<{ isPressed?: boolean }>> = {
 	"development": DevelopmentIcon,
@@ -16,6 +17,8 @@ export const CourseCatalog = () => {
 	const {
 		filterValues,
 		setFilterValues,
+		page,
+		setPage,
 		toggleFilter,
 		pendingForCategories,
 		categoriesListObj,
@@ -23,6 +26,8 @@ export const CourseCatalog = () => {
 		topicsListObj,
 		pendingForInstructors,
 		instructorsListObj,
+		pendingForCoursesList,
+		coursesListObj,
 	} = useCourseCatalogController();
 
 	return (
@@ -151,6 +156,54 @@ export const CourseCatalog = () => {
 					</Box>
 				</Stack>
 
+			</Stack>
+
+			<Stack direction="column" gap="32px">
+				<Stack direction="row" justifyContent="space-between" >
+					<Typography color="#666666" fontSize={16}>
+						Showing {coursesListObj ?
+							`${coursesListObj.data.length} out of ${coursesListObj.meta.total}` : "? out of ?"}
+					</Typography>
+				</Stack>
+
+				<Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", width: "1167px" }}>
+					{!pendingForCoursesList && coursesListObj!.data.map((course) => {
+						const Icon = categoryIconMap[course.category.icon];
+						return (
+							<CatalogCourseCard courseDetails={course}>
+								<Box
+									sx={{
+										borderRadius: "8px",
+										padding: "8px 12px",
+										display: "flex",
+										flexDirection: "row",
+										gap: "10px",
+										backgroundColor: "#F5F5F5",
+									}}
+								>
+									{Icon && <Icon isPressed={filterValues.categories.includes(course.category.id)} />}
+									<Typography
+										color={filterValues.categories.includes(course.category.id) ? "white" : "#666666"}
+										fontSize={16}
+									>
+										{course.category.name}
+									</Typography>
+								</Box>
+							</CatalogCourseCard>
+						);
+					}
+					)}
+				</Box>
+
+				<Pagination
+					page={page}
+					onChange={(_, value) => setPage(value)}
+					count={
+						coursesListObj ?
+							Math.ceil(coursesListObj?.meta.total / coursesListObj?.meta.perPage) : 1
+					}
+					shape="rounded"
+				/>
 			</Stack>
 		</Box >
 	);

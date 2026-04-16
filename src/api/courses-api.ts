@@ -33,8 +33,16 @@ export type CourseType = {
     instructor: InstructorType;
 };
 
+type MetaType = {
+    currentPage: number;
+    lastPage: number;
+    perPage: number;
+    total: number;
+};
+
 export type CoursesResponseType = {
     data: CourseType[];
+    meta: MetaType
 };
 
 type WeeklyScheduleType = {
@@ -84,8 +92,21 @@ export const coursesFeatured = async (): Promise<CoursesResponseType> => {
     return await http.get("/courses/featured");
 };
 
-export const coursesList = async (): Promise<CoursesResponseType> => {
-    return await http.get("/courses");
+export const coursesList = async (
+    categoryIds?: number[], topicIds?: number[], instructorIds?: number[], page?: number, sort?: string
+): Promise<CoursesResponseType> => {
+    const params = new URLSearchParams();
+
+    categoryIds?.forEach(id => params.append("categories[]", String(id)));
+    topicIds?.forEach(id => params.append("topics[]", String(id)));
+    instructorIds?.forEach(id => params.append("instructors[]", String(id)));
+
+    if (sort) params.append("sort", sort);
+    if (page) params.append("page", String(page));
+
+    const query = params.toString();
+
+    return await http.get(`/courses${query ? `?${query}` : ""}`);
 };
 
 export const coursesInProgress = async (accessToken: string): Promise<CoursesInProgressResponseType> => {
